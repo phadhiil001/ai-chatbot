@@ -3,8 +3,9 @@ import { OpenAIStream, StreamingTextResponse } from 'ai';
 
 // Create an OpenAI API client
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '',
-});
+  apiKey: process.env.NVIDIA_API_KEY,
+  baseURL: 'https://integrate.api.nvidia.com/v1',
+})
 
 // IMPORTANT! Set the runtime to edge
 export const runtime = 'edge';
@@ -16,7 +17,7 @@ export async function POST(req: Request, res: Response) {
   
   // Ask OpenAI for a streaming chat completion given the prompt
   const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
+    model: "mistralai/mixtral-8x7b-instruct-v0.1",
     messages: [
       {
         role: "system",
