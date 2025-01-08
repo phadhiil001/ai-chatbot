@@ -1,167 +1,223 @@
+/* Global Reset & Body */
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: #f7f7f7;
+	color: #333333;
 }
 
+/* App Container */
 .App {
-  text-align: center;
-  background-color: #000e1e;
-  height: 100vh;
-  color: white;
-  display: flex;
-  margin: 0;
+	text-align: center;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
+/* Central Container for content */
 .container {
-  width: 100%;
-  max-width: 920px;
-  margin: auto;
+	width: 100%;
+	max-width: 920px;
+	margin: auto;
+	padding: 20px;
 }
 
-.logoBox {
-  padding-top: 10px;
+/* Chat Response Area */
+.response {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	margin: 20px auto;
+	padding: 20px;
+	max-width: 700px;
+	background-color: #ffffff;
+	border: 1px solid #e0e0e0; /* Light gray border for definition */
+	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	overflow-y: auto;
+	animation: fadeInUp 1.2s ease; /* Added animation for better UX */
 }
 
-.logo {
-  margin: 10px;
+/* Bubble-style Chat Messages */
+.chat-message {
+	max-width: 70%;
+	padding: 10px 15px;
+	border-radius: 15px;
+	word-break: break-word;
+	line-height: 1.4;
+	margin: 5px 0;
+	display: flex;
+	flex-direction: column;
 }
 
-.small-asset {
-  width: 200px;
-  height: 50px;
+.chat-message.user {
+	align-self: flex-end;
+	background-color: #d1e7f7;
+	color: #333333;
+	text-align: right;
 }
 
-.red-text {
-  margin-top: 0px;
-  color: red;
+.chat-message.assistant {
+	align-self: flex-start;
+	background-color: #f9f2ec;
+	color: #333333;
+	text-align: left;
 }
 
-h1 {
-  font-size: 50px;
+.avatar {
+	border-radius: 50%;
+	margin-right: 10px;
+	display: inline-block;
+	vertical-align: middle;
 }
 
-.primaryColor {
-  color: #e02aff;
+/* Label Styling */
+.message-label {
+	font-weight: bold;
+	margin-bottom: 5px;
+	display: block;
+	color: #666666;
 }
 
-.secondaryColor {
-  color: rgb(184, 65, 184);
-}
-
-.mainForm {
-  margin: 20px auto;
-}
-
-.mainForm input {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px 20px;
-  border-radius: 100px;
-  border: 1px solid white;
-  outline: none;
-}
-
-.mainButton {
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 1rem;
-  border: 1px solid #e02aff;
-  outline: none;
-  background-color: #e02aff;
-  color: white;
-  font-weight: 900;
-  margin-left: 10px;
-  cursor: pointer;
-  text-transform: uppercase;
-}
-
-.mainButton:hover {
-  background-color: #8f14d2;
-}
-
-.secondaryButton {
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 1rem;
-  border: 1px solid #e02aff;
-  outline: none;
-  background-color: transparent;
-  color: white;
-  font-weight: 900;
-  margin-left: 10px;
-  cursor: pointer;
-  text-transform: uppercase;
-}
-
-.secondaryButton:hover {
-  background-color: rgba(184, 65, 184, 0.339);
-}
-
-button:disabled,
-button:disabled:hover {
-  background-color: #b7aeb9;
-  border-color: #b7aeb9;
-  color: white;
-  cursor: not-allowed;
-  opacity: 0.5;
+/* Loading Spinner */
+.loading-container {
+	text-align: center;
+	margin-top: 20px;
 }
 
 .loading-spinner {
-  display: inline-block;
-  margin: auto;
-  width: 50px;
-  height: 50px;
-  border: 5px solid #fff;
-  border-radius: 50%;
-  border-top-color: #e02aff;
-  animation: spin 1s ease-in-out infinite;
-  -webkit-animation: spin 1s ease-in-out infinite;
+	display: inline-block;
+	margin: auto;
+	width: 50px;
+	height: 50px;
+	border: 5px solid #e0e0e0;
+	border-radius: 50%;
+	border-top-color: #4a90e2;
+	animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
-  to {
-    -webkit-transform: rotate(360deg);
-  }
+	to {
+		transform: rotate(360deg);
+	}
 }
 
-@-webkit-keyframes spin {
-  to {
-    -webkit-transform: rotate(360deg);
-  }
+.loading-text {
+	color: #4a90e2;
+	font-style: italic;
+	margin-top: 10px;
 }
 
-.response {
-  display: flex;
-  flex-direction: column;
-  height: 60vh;
-  max-width: 700px;
-  margin: auto;
-  text-align: left;
-  padding: 10px;
-  border: 1px solid white;
-  border-radius: 20px;
-  overflow: auto;
+/* Chat Images */
+.image-message {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px auto;
 }
 
-.image-box {
-  margin: auto;
+.fade-in-image {
+	border: 2px solid #e0e0e0;
+	border-radius: 15px;
+	padding: 10px 15px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	animation: fadeIn 0.5s ease-in-out forwards;
 }
 
-.chat-line {
-  margin: 10px 0;
-  white-space: pre-wrap;
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
-.bold {
-  font-weight: 800;
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
-@media screen and (max-width: 600px) {
-  .mainForm input {
-    width: auto;
-  }
+/* Form */
+.mainForm {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	margin: 20px auto;
+}
+
+.mainForm input {
+	width: 100%;
+	max-width: 400px;
+	padding: 12px 20px;
+	border-radius: 8px;
+	border: 1px solid #d0d0d0;
+	background-color: #ffffff;
+	color: #333333;
+	font-size: 1rem;
+	outline: none;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mainForm input:focus {
+	border-color: #4a90e2;
+	box-shadow: 0 0 4px rgba(74, 144, 226, 0.5);
+}
+
+.mainForm input::placeholder {
+	color: #aaaaaa;
+	font-style: italic;
+}
+
+.mainButton,
+.secondaryButton {
+	padding: 10px 20px;
+	border-radius: 20px;
+	font-size: 1rem;
+	font-weight: 900;
+	outline: none;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.mainButton {
+	border: 1px solid #4a90e2;
+	background-color: #4a90e2;
+	color: white;
+}
+
+.mainButton:hover {
+	background-color: #3a78c2;
+	transform: scale(1.05);
+}
+
+.secondaryButton {
+	border: 1px solid #4a90e2;
+	background-color: #f7f7f7;
+	color: #4a90e2;
+}
+
+.secondaryButton:hover {
+	background-color: #e6f0fa;
+	color: #3a78c2;
+	transform: scale(1.05);
+}
+
+button:disabled {
+	background-color: #b7aeb9;
+	border-color: #b7aeb9;
+	color: white;
+	cursor: not-allowed;
+	opacity: 0.5;
 }

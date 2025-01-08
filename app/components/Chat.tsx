@@ -16,23 +16,24 @@ const Chat = () => {
 		try {
 			const response = await fetch("/api/replicate", {
 				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
+				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ prompt: input }),
 			});
 			const { imageUrl } = await response.json();
 			setImageUrl(imageUrl);
 			setError("");
+			handleInputChange({
+				target: { value: "" },
+			} as React.ChangeEvent<HTMLInputElement>);
 		} catch (e) {
 			setError(`An error occurred calling the API: ${e}`);
+		} finally {
+			setLoading(false);
 		}
-		setLoading(false);
 	};
 
 	const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-
 		if (submitType === "text") {
 			handleSubmit(event);
 		} else {
@@ -42,46 +43,49 @@ const Chat = () => {
 		}
 	};
 
-	const userColors = {
-		user: "#00c0ff",
-		assistant: "#e02aff",
-		function: "#fff",
-		system: "#fff",
-		tool: "#fff",
-		data: "#fff",
-	};
-
 	const renderResponse = () => {
 		if (submitType === "text") {
 			return (
 				<div className='response'>
-					{messages.length > 0
-						? messages.map((m) => (
-								<div
-									key={m.id}
-									className='chat-line'>
-									<span style={{ color: userColors[m.role] }}>
-										{m.role === "user" ? "User: " : "⚡️Last Codebender: "}
-									</span>
-									{m.content}
-								</div>
-						  ))
-						: error}
+					{messages.map((m, index) => (
+						<div
+							key={index}
+							className={`chat-message ${
+								m.role === "user" ? "user" : "assistant"
+							}`}>
+							<Image
+								src={m.role === "user" ? "/download.png" : "/logo.jpg"}
+								width={30}
+								height={30}
+								alt={m.role === "user" ? "User Avatar" : "Assistant Avatar"}
+								className='avatar'
+							/>
+							{m.content}
+						</div>
+					))}
 				</div>
 			);
 		} else {
 			return (
 				<div className='response'>
-					{loading && <div className='loading-spinner'></div>}
-					{imageUrl && (
-						<Image
-							src={imageUrl}
-							className='image-box'
-							alt='Generated image'
-							width='400'
-							height='400'
-						/>
+					{loading && (
+						<div className='loading-container'>
+							<div className='loading-spinner'></div>
+							<p className='loading-text'>Generating...</p>
+						</div>
 					)}
+					{imageUrl && (
+						<div className='assistant image-message'>
+							<Image
+								src={imageUrl}
+								alt='Generated'
+								width={400}
+								height={400}
+								className='fade-in-image'
+							/>
+						</div>
+					)}
+					{error && <p className='error-message'>{error}</p>}
 				</div>
 			);
 		}
